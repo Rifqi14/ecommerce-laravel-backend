@@ -19,6 +19,7 @@ class CountryController extends Controller
   {
     $countries = $this->countryRepository->all();
 
-    return response()->json(['items' => $countries, 'total' => count($countries), 'success' => true, 'message' => 'Countries retrieved successfully.', 'code' => 200, 'errors' => [], 'timestamp' => time()], 200);
+    // return response()->json(['items' => $countries, 'total' => count($countries), 'success' => true, 'message' => 'Countries retrieved successfully.', 'code' => 200, 'errors' => [], 'timestamp' => time()], 200)1
+    return response()->success($countries, null);
   }
 }
