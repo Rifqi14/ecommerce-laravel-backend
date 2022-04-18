@@ -19,6 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(CountryController::class)->group(function () {
-    Route::get('/countries', 'index');
+Route::prefix('area')->group(function () {
+    Route::prefix('country')->group(function () {
+        Route::controller(CountryController::class)->group(function () {
+            Route::get('/', 'index');
+        });
+    });
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Area;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Area\CountryResource;
 use App\Repository\CountryRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,12 @@ class CountryController extends Controller
 
   public function index()
   {
-    $countries = $this->countryRepository->all();
+    try {
+      $countries = $this->countryRepository->all();
 
-    // return response()->json(['items' => $countries, 'total' => count($countries), 'success' => true, 'message' => 'Countries retrieved successfully.', 'code' => 200, 'errors' => [], 'timestamp' => time()], 200)1
-    return response()->success($countries, null);
+      return response()->success(CountryResource::collection($countries));
+    } catch (\Throwable $th) {
+      throw $th;
+    }
   }
 }
